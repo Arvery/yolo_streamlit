@@ -20,10 +20,10 @@ yolo = YOLO()
 crop = True
 count = False
 
-video_save_path = 'data/video_save'
+video_save_path = 'img'
 video_fps       = 25.0
 
-heatmap_save_path = "data/heat/heatmap_vision.png"
+heatmap_save_path = "img/heatmap_vision.png"
 
 st.header('Bird monitoring')
 source = ("单张图片检测", "视频检测","文件夹检测","预测结果热力图")
@@ -39,7 +39,7 @@ if source_index == 0:
             st.sidebar.image(uploaded_file)
             picture = Image.open(uploaded_file)
             image = picture.convert("RGB")
-            image = image.save(f'data/img/{uploaded_file.name}')
+            image = image.save(f'img/{uploaded_file.name}')
 
     else:
         is_valid = False
@@ -50,9 +50,9 @@ elif source_index == 1:
 
         with st.spinner(text='资源加载中...'):
             st.sidebar.video(uploaded_file)
-            with open(os.path.join("data/video", uploaded_file.name), "wb") as f:
+            with open(os.path.join("img", uploaded_file.name), "wb") as f:
                 f.write(uploaded_file.getbuffer())
-            video_path = f'data/video/{uploaded_file.name}'
+            video_path = f'img/{uploaded_file.name}'
 
     else:
         is_valid = False
@@ -66,7 +66,7 @@ elif source_index == 2:
                 st.sidebar.image(uploaded_file)
                 picture = Image.open(uploaded_file)
                 image = picture.convert("RGB")
-                image = image.save(f'data/imgs/{uploaded_file.name}')
+                image = image.save(f'img/{uploaded_file.name}')
         else:
             is_valid = False
 else:
@@ -78,7 +78,7 @@ else:
             st.sidebar.image(uploaded_file)
             picture = Image.open(uploaded_file)
             image = picture.convert("RGB")
-            image = image.save(f'data/img/{uploaded_file.name}')
+            image = image.save(f'img/{uploaded_file.name}')
     else:
         is_valid = False
 
@@ -94,8 +94,8 @@ if is_valid:
                 #predict_img = Image.open(predict_img)
                 st.image(predict_img,width=640)
                 st.balloons()
-            shutil.rmtree('data/img')
-            os.mkdir('data/img')
+            shutil.rmtree('img')
+            os.mkdir('img')
 
         elif source_index == 1:
             capture = cv2.VideoCapture(video_path)
@@ -146,8 +146,8 @@ if is_valid:
                 print("Save processed video to the path :" + video_save_path)
                 out.release()
             cv2.destroyAllWindows()
-            shutil.rmtree('data/video')
-            os.mkdir('data/video')
+            shutil.rmtree('img')
+            os.mkdir('img')
 
         elif source_index == 2:
             for dirpath,dirname,filenames in os.walk('data/imgs'):
@@ -173,7 +173,6 @@ if is_valid:
                 st.image(num_img, use_column_width='auto')
                 st.write(num_img)
                 st.balloons()
-            shutil.rmtree('data/heat')
-            os.mkdir('data/heat')
-            shutil.rmtree('data/img')
-            os.mkdir('data/img')
+            shutil.rmtree('img')
+            os.mkdir('img')
+            
