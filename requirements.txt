@@ -3,8 +3,7 @@
 
 streamlit
 
-# base ----------------------------------------
-python ==3.
+# base ------------------------------------
 matplotlib>=3.1.2
 numpy>=1.18.5
 opencv-python-headless>=4.3.3.68
